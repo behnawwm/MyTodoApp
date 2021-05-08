@@ -1,8 +1,8 @@
 package com.example.mytodoapp.repository
 
+import com.example.mytodoapp.data.SortOrder
 import com.example.mytodoapp.data.db.dao.TaskDao
 import com.example.mytodoapp.data.db.models.Task
-import com.example.mytodoapp.ui.fragments.taskList.SortOrder
 import javax.inject.Inject
 
 class TaskRepository @Inject constructor(

@@ -1,8 +1,8 @@
 package com.example.mytodoapp.data.db.dao
 
 import androidx.room.*
+import com.example.mytodoapp.data.SortOrder
 import com.example.mytodoapp.data.db.models.Task
-import com.example.mytodoapp.ui.fragments.taskList.SortOrder
 import kotlinx.coroutines.flow.Flow
 
 @Dao

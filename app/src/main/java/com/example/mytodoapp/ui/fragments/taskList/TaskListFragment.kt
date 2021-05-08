@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codinginflow.mvvmtodo.util.onQueryTextChanged
 import com.example.mytodoapp.R
+import com.example.mytodoapp.data.SortOrder
 import com.example.mytodoapp.databinding.FragmentTaskListBinding
 import com.example.mytodoapp.data.db.models.Task
 import dagger.hilt.android.AndroidEntryPoint

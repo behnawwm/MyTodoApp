@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mytodoapp.data.PreferencesManager
+import com.example.mytodoapp.data.SortOrder
 import com.example.mytodoapp.data.db.models.Task
 import com.example.mytodoapp.repository.TaskRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -50,5 +51,3 @@ class TaskListViewModel @ViewModelInject constructor(
         repository.update(task.copy(isDone = isChecked))
     }
 }
-
-enum class SortOrder { BY_NAME, BY_DATE }
