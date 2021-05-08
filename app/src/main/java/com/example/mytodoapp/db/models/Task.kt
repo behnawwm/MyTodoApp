@@ -11,8 +11,8 @@ import java.text.DateFormat
 data class Task(
     val title: String,
     val description: String,
-    val starred: Boolean = false,
-    val done: Boolean = false,
+    val isStarred: Boolean = false,
+    val isDone: Boolean = false,
     val category: Int = 0,
     val priority: Int = 0,
     val dateCreated: Long = System.currentTimeMillis(),

@@ -25,14 +25,14 @@ class TaskListAdapter : ListAdapter<Task, TaskListAdapter.TaskListViewHolder>(Di
 
         fun bind(task: Task) {
             binding.apply {
-                checkBoxDone.isChecked = task.done
-                checkBoxImportant.isChecked = task.starred
+                checkBoxDone.isChecked = task.isDone
+                checkBoxImportant.isChecked = task.isStarred
                 tvTitle.text = task.title
                 tvDate.text = task.createdDateFormatted
 
                 //crossed
-                tvDate.paint.isStrikeThruText = task.done
-                tvTitle.paint.isStrikeThruText = task.done
+                tvDate.paint.isStrikeThruText = task.isDone
+                tvTitle.paint.isStrikeThruText = task.isDone
 
             }
         }

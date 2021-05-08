@@ -7,5 +7,5 @@ class TaskRepository @Inject constructor(
     val taskDao: TaskDao,
 
     ) {
-    fun getAllTasks()= taskDao.getTasks()
+    fun getAllTasks(query:String)= taskDao.getTasks(query)
 }

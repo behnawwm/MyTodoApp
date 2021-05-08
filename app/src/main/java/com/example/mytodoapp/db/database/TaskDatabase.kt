@@ -30,9 +30,9 @@ abstract class TaskDatabase : RoomDatabase() {
             applicationScope.launch {
                 dao.insert(Task("Wash the dishes", "dsadasd"))
                 dao.insert(Task("Do the laundry", "wwwe"))
-                dao.insert(Task("Buy groceries", "hhhhh", starred = true))
-                dao.insert(Task("Call mom", "hhh", done = true))
-                dao.insert(Task("Visit grandma", "dsj;flk", starred = true, done = true))
+                dao.insert(Task("Buy groceries", "hhhhh", isStarred = true))
+                dao.insert(Task("Call mom", "hhh", isDone = true))
+                dao.insert(Task("Visit grandma", "dsj;flk", isStarred = true, isDone = true))
 
             }
         }
