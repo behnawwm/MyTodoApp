@@ -13,6 +13,7 @@ data class Task(
     val description: String,
     val starred: Boolean = false,
     val done: Boolean = false,
+    val category: Int = 0,
     val priority: Int = 0,
     val dateCreated: Long = System.currentTimeMillis(),
     @PrimaryKey(autoGenerate = true) val id: Int = 0,

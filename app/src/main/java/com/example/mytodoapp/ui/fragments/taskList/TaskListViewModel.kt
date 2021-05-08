@@ -1,4 +1,4 @@
-package com.example.mytodoapp.ui.fragments
+package com.example.mytodoapp.ui.fragments.taskList
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel

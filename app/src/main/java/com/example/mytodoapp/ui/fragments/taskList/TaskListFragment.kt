@@ -1,16 +1,12 @@
-package com.example.mytodoapp.ui.fragments
+package com.example.mytodoapp.ui.fragments.taskList
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.mytodoapp.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TaskListFragment : Fragment() {
+class TaskListFragment : Fragment(R.layout.fragment_task_list) {
     private val viewModel: TaskListViewModel by viewModels()
 
 
