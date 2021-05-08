@@ -1,11 +1,11 @@
-package com.example.mytodoapp.db.database
+package com.example.mytodoapp.data.db.database
 
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.mytodoapp.db.dao.TaskDao
-import com.example.mytodoapp.db.models.Task
+import com.example.mytodoapp.data.db.dao.TaskDao
+import com.example.mytodoapp.data.db.models.Task
 import com.example.mytodoapp.di.ApplicationScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
