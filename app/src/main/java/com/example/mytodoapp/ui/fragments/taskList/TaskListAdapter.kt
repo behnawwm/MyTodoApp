@@ -37,14 +37,14 @@ class TaskListAdapter(private val listener: OnItemPressListener) :
                     val position = adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val task = getItem(position)
-                        listener.onCheckBoxClick(task, checkBoxDone.isChecked)
+                        listener.onCheckBoxDoneClick(task, checkBoxDone.isChecked)
                     }
                 }
                 checkBoxImportant.setOnClickListener {
                     val position = adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val task = getItem(position)
-                        listener.onCheckBoxClick(task, checkBoxDone.isChecked)
+                        listener.onCheckBoxImportantClick(task, checkBoxImportant.isChecked)
                     }
                 }
             }
@@ -67,7 +67,8 @@ class TaskListAdapter(private val listener: OnItemPressListener) :
 
     interface OnItemPressListener {
         fun onItemClick(task: Task)
-        fun onCheckBoxClick(task: Task, isChecked: Boolean)
+        fun onCheckBoxDoneClick(task: Task, isChecked: Boolean)
+        fun onCheckBoxImportantClick(task: Task, isChecked: Boolean)
     }
 
     class DiffCallback : DiffUtil.ItemCallback<Task>() {

@@ -138,16 +138,16 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_sort_by_name -> {
-                viewModel.sortOrder.value = SortOrder.BY_NAME
+                viewModel.onSortOrderSelected(SortOrder.BY_NAME)
                 true
             }
             R.id.action_sort_by_date_created -> {
-                viewModel.sortOrder.value = SortOrder.BY_DATE
+                viewModel.onSortOrderSelected(SortOrder.BY_DATE)
                 true
             }
             R.id.action_hide_completed_tasks -> {
                 item.isChecked = !item.isChecked
-                viewModel.hideCompleted.value = item.isChecked
+                viewModel.onHideCompletedClick(item.isChecked)
                 true
             }
             R.id.action_delete_all_completed_tasks -> {
@@ -166,9 +166,14 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list),
         viewModel.onTaskSelected(task)
     }
 
-    override fun onCheckBoxClick(task: Task, isChecked: Boolean) {
+    override fun onCheckBoxDoneClick(task: Task, isChecked: Boolean) {
         viewModel.onTaskCheckedChanged(task, isChecked)
     }
+
+    override fun onCheckBoxImportantClick(task: Task, isChecked: Boolean) {
+        viewModel.onTaskImportantCheckedChanged(task, isChecked)
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

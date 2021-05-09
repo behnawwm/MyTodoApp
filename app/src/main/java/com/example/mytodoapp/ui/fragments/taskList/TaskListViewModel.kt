@@ -21,12 +21,11 @@ import kotlinx.coroutines.launch
 class TaskListViewModel @ViewModelInject constructor(
     private val repository: TaskRepository,
     private val preferencesManager: PreferencesManager,
+    //todo assisted statehandle
 ) : ViewModel() {
     val preferencesFlow = preferencesManager.preferencesFlow
 
     val searchQuery = MutableStateFlow("")
-    val sortOrder = MutableStateFlow(SortOrder.BY_DATE)
-    val hideCompleted = MutableStateFlow(false)
 
     private val tasksEventChannel = Channel<TasksEvent>()
     val tasksEvent = tasksEventChannel.receiveAsFlow()
@@ -57,6 +56,9 @@ class TaskListViewModel @ViewModelInject constructor(
 
     fun onTaskCheckedChanged(task: Task, isChecked: Boolean) = viewModelScope.launch {
         repository.update(task.copy(isDone = isChecked))
+    }
+    fun onTaskImportantCheckedChanged(task: Task, isChecked: Boolean) = viewModelScope.launch {
+        repository.update(task.copy(isStarred = isChecked))
     }
 
     fun onTaskSwiped(task: Task) = viewModelScope.launch {
