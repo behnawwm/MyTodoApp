@@ -11,6 +11,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,6 +43,7 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list),
                 adapter = taskAdapter
                 layoutManager = LinearLayoutManager(requireContext())
                 setHasFixedSize(true)
+//                addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
 
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
@@ -105,7 +107,8 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list),
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
                     }
                     TaskListViewModel.TasksEvent.NavigateToDeleteAllDoneScreen -> {
-                        val action = TaskListFragmentDirections.actionGlobalDeleteAllDoneDialogFragment()
+                        val action =
+                            TaskListFragmentDirections.actionGlobalDeleteAllDoneDialogFragment()
                         view.findNavController().navigate(action)
                     }
                 }.exhaustive
