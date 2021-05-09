@@ -10,7 +10,7 @@ import java.text.DateFormat
 @Parcelize
 data class Task(
     val title: String,
-    val description: String,
+    val description: String = "",
     val isStarred: Boolean = false,
     val isDone: Boolean = false,
     val category: Int = 0,

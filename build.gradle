@@ -48,5 +48,5 @@ ext {
     testExtJunitVersion = '1.1.1'
     coroutinesVersion = "1.3.9"
     roomVersion = "2.2.5"
-
+    fragment_version = "1.3.3"
 }

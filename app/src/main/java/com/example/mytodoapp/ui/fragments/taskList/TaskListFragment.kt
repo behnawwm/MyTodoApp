@@ -7,9 +7,10 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,7 @@ import com.example.mytodoapp.R
 import com.example.mytodoapp.data.SortOrder
 import com.example.mytodoapp.databinding.FragmentTaskListBinding
 import com.example.mytodoapp.data.db.models.Task
+import com.example.mytodoapp.util.exhaustive
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -63,6 +65,10 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list),
                 viewModel.onAddNewTaskClick()
             }
         }
+        setFragmentResultListener("add_edit_request") { _, bundle ->
+            val result = bundle.getInt("add_edit_result")
+            viewModel.onAddEditResult(result)
+        }
 
         viewModel.tasks.observe(viewLifecycleOwner) {
             taskAdapter.submitList(it)
@@ -84,7 +90,7 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list),
                                 null,
                                 "New Task"
                             )
-                        findNavController().navigate(action)
+                        view.findNavController().navigate(action)
                     }
                     is TaskListViewModel.TasksEvent.NavigateToEditTaskScreen -> {
                         val action =
@@ -92,9 +98,12 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list),
                                 event.task,
                                 "Edit Task"
                             )
-                        findNavController().navigate(action)
+                        view.findNavController().navigate(action)
                     }
-                }
+                    is TaskListViewModel.TasksEvent.ShowTaskSavedConfirmationMessage -> {
+                        Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
+                    }
+                }.exhaustive
             }
         }
 
