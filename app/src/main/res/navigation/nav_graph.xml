@@ -8,6 +8,23 @@
     <fragment
         android:id="@+id/taskListFragment"
         android:name="com.example.mytodoapp.ui.fragments.taskList.TaskListFragment"
-        android:label="fragment_task_list"
-        tools:layout="@layout/fragment_task_list" />
+        android:label="Tasks"
+        tools:layout="@layout/fragment_task_list" >
+        <action
+            android:id="@+id/action_taskListFragment_to_taskAddEditFragment"
+            app:destination="@id/taskAddEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskAddEditFragment"
+        android:name="com.example.mytodoapp.ui.fragments.newTask.TaskAddEditFragment"
+        android:label="{title}"
+        tools:layout="@layout/fragment_task_add_edit" >
+        <argument
+            android:name="task"
+            app:argType="com.example.mytodoapp.data.db.models.Task"
+            app:nullable="true" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
 </navigation>
