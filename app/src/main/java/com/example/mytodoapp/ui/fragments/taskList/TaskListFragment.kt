@@ -30,6 +30,7 @@ import kotlinx.coroutines.launch
 class TaskListFragment : Fragment(R.layout.fragment_task_list),
     TaskListAdapter.OnItemPressListener {
     private val viewModel: TaskListViewModel by viewModels()
+    private lateinit var searchView: SearchView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -103,6 +104,10 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list),
                     is TaskListViewModel.TasksEvent.ShowTaskSavedConfirmationMessage -> {
                         Snackbar.make(requireView(), event.msg, Snackbar.LENGTH_SHORT).show()
                     }
+                    TaskListViewModel.TasksEvent.NavigateToDeleteAllDoneScreen -> {
+                        val action = TaskListFragmentDirections.actionGlobalDeleteAllDoneDialogFragment()
+                        view.findNavController().navigate(action)
+                    }
                 }.exhaustive
             }
         }
@@ -114,8 +119,13 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list),
         inflater.inflate(R.menu.menu_task_list, menu)
 
         val searchItem = menu.findItem(R.id.action_search)
-        val searchView = searchItem.actionView as SearchView
+        searchView = searchItem.actionView as SearchView
 
+        val pendingQuery = viewModel.searchQuery.value
+        if (pendingQuery != null && pendingQuery.isNotEmpty()) {
+            searchItem.expandActionView()
+            searchView.setQuery(pendingQuery, false)
+        }
         searchView.onQueryTextChanged {
             viewModel.searchQuery.value = it
         }
@@ -141,8 +151,7 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list),
                 true
             }
             R.id.action_delete_all_completed_tasks -> {
-                //todo
-
+                viewModel.onDeleteAllDoneClick()
                 true
             }
             R.id.settings -> {
@@ -161,4 +170,8 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list),
         viewModel.onTaskCheckedChanged(task, isChecked)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        searchView.setOnQueryTextListener(null)
+    }
 }

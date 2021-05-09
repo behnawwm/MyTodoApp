@@ -23,4 +23,8 @@ class TaskRepository @Inject constructor(
     suspend fun insert(task: Task) {
         taskDao.insert(task)
     }
+
+    suspend fun deleteDoneTasks() {
+        taskDao.deleteDoneTasks()
+    }
 }
