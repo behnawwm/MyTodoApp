@@ -8,9 +8,11 @@ import com.example.mytodoapp.data.PreferencesManager
 import com.example.mytodoapp.data.SortOrder
 import com.example.mytodoapp.data.db.models.Task
 import com.example.mytodoapp.repository.TaskRepository
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 
@@ -23,6 +25,9 @@ class TaskListViewModel @ViewModelInject constructor(
     val searchQuery = MutableStateFlow("")
     val sortOrder = MutableStateFlow(SortOrder.BY_DATE)
     val hideCompleted = MutableStateFlow(false)
+
+    private val tasksEventChannel = Channel<TasksEvent>()
+    val tasksEvent = tasksEventChannel.receiveAsFlow()
 
     private val tasksFlow = combine(
         searchQuery,
@@ -49,5 +54,19 @@ class TaskListViewModel @ViewModelInject constructor(
 
     fun onTaskCheckedChanged(task: Task, isChecked: Boolean) = viewModelScope.launch {
         repository.update(task.copy(isDone = isChecked))
+    }
+
+    //events
+    fun onTaskSwiped(task: Task) = viewModelScope.launch {
+        repository.delete(task)
+        tasksEventChannel.send(TasksEvent.ShowUndoDeleteTaskMessage(task))
+    }
+
+    fun onUndoDeleteClick(task: Task) = viewModelScope.launch {
+        repository.insert(task)
+    }
+
+    sealed class TasksEvent {
+        data class ShowUndoDeleteTaskMessage(val task: Task) : TasksEvent()
     }
 }

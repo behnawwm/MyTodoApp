@@ -40,6 +40,13 @@ class TaskListAdapter(private val listener: OnItemPressListener) :
                         listener.onCheckBoxClick(task, checkBoxDone.isChecked)
                     }
                 }
+                checkBoxImportant.setOnClickListener {
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val task = getItem(position)
+                        listener.onCheckBoxClick(task, checkBoxDone.isChecked)
+                    }
+                }
             }
         }
 
