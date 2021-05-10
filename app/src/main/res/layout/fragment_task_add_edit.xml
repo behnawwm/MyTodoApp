@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -39,13 +40,26 @@
                 android:drawableLeft="@drawable/ic_calendar"
                 android:text="Today" />
 
-            <Button
-                android:id="@+id/btn_priority_select"
-                android:layout_width="wrap_content"
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/power_spinner"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:drawableLeft="@drawable/ic_priority"
-                android:text="Priority : Normal" />
+                android:background="@color/orangePrimary"
+                android:gravity="center"
+                android:padding="7dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                app:spinner_arrow_gravity="end"
+                app:spinner_popup_animation="dropdown"
+                app:spinner_popup_elevation="14dp" />
+            <!--            <Button-->
+            <!--                android:id="@+id/btn_priority_select"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginLeft="8dp"-->
+            <!--                android:drawableLeft="@drawable/ic_priority"-->
+            <!--                android:text="Priority : Normal" />-->
 
             <CheckBox
                 android:id="@+id/check_box_important"
@@ -53,8 +67,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginLeft="8dp" />
+                android:layout_marginLeft="8dp"
+                android:buttonTint="@color/yellow" />
         </LinearLayout>
+
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

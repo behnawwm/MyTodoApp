@@ -68,8 +68,18 @@ class TaskListAdapter(val context: Context, private val listener: OnItemPressLis
                     tvDate.setTextColor(ContextCompat.getColor(context, R.color.DarkSlateBlue))
 
                 //crossed
-                tvDate.paint.isStrikeThruText = task.isDone
+//                tvDate.paint.isStrikeThruText = task.isDone
                 tvTitle.paint.isStrikeThruText = task.isDone
+                if (task.isDone)
+                    tvDate.setTextColor(ContextCompat.getColor(context, R.color.gray))
+
+                //
+                when (task.priority) {
+                    0 -> backgroundPriority.setBackgroundResource(R.drawable.item_task_rounded_background_purple)
+                    1 -> backgroundPriority.setBackgroundResource(R.drawable.item_task_rounded_background_green)
+                    2 -> backgroundPriority.setBackgroundResource(R.drawable.item_task_rounded_background_yellow)
+                    3 -> backgroundPriority.setBackgroundResource(R.drawable.item_task_rounded_background_red)
+                }
 
             }
         }

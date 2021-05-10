@@ -21,12 +21,9 @@ import com.example.mytodoapp.util.convertLongDateToDate
 import com.example.mytodoapp.util.exhaustive
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
-import com.skydoves.powerspinner.SpinnerAnimation
-import com.skydoves.powerspinner.SpinnerGravity
-import com.skydoves.powerspinner.createPowerSpinnerView
+import com.skydoves.powerspinner.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import java.util.*
 
 
 @AndroidEntryPoint
@@ -42,9 +39,35 @@ class TaskAddEditFragment : Fragment(R.layout.fragment_task_add_edit) {
             editTextTaskName.setText(viewModel.taskName)
             checkBoxImportant.isChecked = viewModel.taskImportance
             checkBoxImportant.jumpDrawablesToCurrentState()
+
             //test
-            setupPriorityButtonText(btnPrioritySelect, viewModel.taskPriority)
-            //todo listener remaining
+            powerSpinner.apply {
+                setSpinnerAdapter(IconSpinnerAdapter(this))
+                setItems(
+                    arrayListOf(
+                        IconSpinnerItem(text = "Low", iconRes = R.drawable.ic_high_priority_purple),
+                        IconSpinnerItem(
+                            text = "Normal",
+                            iconRes = R.drawable.ic_high_priority_green
+                        ),
+                        IconSpinnerItem(
+                            text = "High",
+                            iconRes = R.drawable.ic_high_priority_yellow
+                        ),
+                        IconSpinnerItem(
+                            text = "Critical",
+                            iconRes = R.drawable.ic_high_priority_red
+                        )
+                    )
+                )
+                lifecycleOwner = viewLifecycleOwner
+                selectItemByIndex(0)
+                setupPriorityButtonText(powerSpinner, viewModel.taskPriority)
+                setOnSpinnerItemSelectedListener<IconSpinnerItem> { oldIndex, oldItem, newIndex, newText ->
+                    viewModel.taskPriority = newIndex
+                    setupPriorityButtonText(powerSpinner, viewModel.taskPriority)
+                }
+            }
 
             //Listeners
             editTextTaskName.addTextChangedListener {
@@ -71,23 +94,7 @@ class TaskAddEditFragment : Fragment(R.layout.fragment_task_add_edit) {
                     viewModel.taskExpirationDate = it
                 }
             }
-            btnPrioritySelect.setOnClickListener {
-                val mySpinnerView = createPowerSpinnerView(requireContext()) {
-                    setSpinnerPopupWidth(300)
-                    setSpinnerPopupHeight(350)
-                    setArrowPadding(6)
-                    setArrowAnimate(true)
-                    setArrowAnimationDuration(200L)
-                    setArrowGravity(SpinnerGravity.START)
-                    setArrowTint(ContextCompat.getColor(requireContext(), R.color.greenDark))
-                    setSpinnerPopupAnimation(SpinnerAnimation.BOUNCE)
-                    setShowDivider(true)
-                    setDividerColor(Color.WHITE)
-                    setDividerSize(2)
-                    setLifecycleOwner(viewLifecycleOwner)
-                }
-                mySpinnerView.show()
-            }
+
         }
 
 
@@ -112,35 +119,59 @@ class TaskAddEditFragment : Fragment(R.layout.fragment_task_add_edit) {
         }
     }
 
-    private fun setupPriorityButtonText(btnPrioritySelect: Button, priority: Int) {
+    private fun setupPriorityButtonText(spinner: PowerSpinnerView, priority: Int) {
         when (priority) {
             0 -> {
                 val spannable = SpannableString("Priority : Low")
                 spannable.setSpan(
-                    ForegroundColorSpan(Color.YELLOW),
+                    ForegroundColorSpan(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.purple_200
+                        )
+                    ),
                     11, 14,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
-                btnPrioritySelect.text = spannable
+                spinner.text = spannable
             }
 
             1 -> {
                 val spannable = SpannableString("Priority : Normal")
                 spannable.setSpan(
-                    ForegroundColorSpan(Color.GREEN),
+                    ForegroundColorSpan(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.green
+                        )
+                    ),
                     11, 17,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
-                btnPrioritySelect.text = spannable
+                spinner.text = spannable
             }
             2 -> {
                 val spannable = SpannableString("Priority : High")
                 spannable.setSpan(
-                    ForegroundColorSpan(Color.RED),
+                    ForegroundColorSpan(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.yellow
+                        )
+                    ),
                     11, 15,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
-                btnPrioritySelect.text = spannable
+                spinner.text = spannable
+            }
+            3 -> {
+                val spannable = SpannableString("Priority : Critical")
+                spannable.setSpan(
+                    ForegroundColorSpan(Color.RED),
+                    11, 19,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                spinner.text = spannable
             }
 
         }
