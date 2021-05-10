@@ -82,6 +82,7 @@ class TaskAddEditFragment : Fragment(R.layout.fragment_task_add_edit) {
             fabSaveTask.setOnClickListener {
                 viewModel.onSaveClick()
             }
+            viewModel.taskExpirationDate = System.currentTimeMillis()   //default date
             btnDateSelect.setOnClickListener {
                 val datePicker =
                     MaterialDatePicker.Builder.datePicker()
@@ -90,7 +91,10 @@ class TaskAddEditFragment : Fragment(R.layout.fragment_task_add_edit) {
                         .build()
                 datePicker.show(requireFragmentManager(), "datepickertest")
                 datePicker.addOnPositiveButtonClickListener {
-                    btnDateSelect.text = convertLongDateToDate(it)
+                    if (convertLongDateToDate(it).equals(convertLongDateToDate(System.currentTimeMillis())))  //today
+                        btnDateSelect.text = "Today"
+                    else
+                        btnDateSelect.text = convertLongDateToDate(it)
                     viewModel.taskExpirationDate = it
                 }
             }

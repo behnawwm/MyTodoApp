@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mytodoapp.R
 import com.example.mytodoapp.databinding.ItemTaskBinding
 import com.example.mytodoapp.data.db.models.Task
+import com.example.mytodoapp.util.convertLongDateToDate
 
 class TaskListAdapter(val context: Context, private val listener: OnItemPressListener) :
     ListAdapter<Task, TaskListAdapter.TaskListViewHolder>(DiffCallback()) {
@@ -62,18 +63,20 @@ class TaskListAdapter(val context: Context, private val listener: OnItemPressLis
                 tvCategory.text = task.category //todo
 
                 //date color
-                if (System.currentTimeMillis() > task.expireDate)
+                if (convertLongDateToDate(System.currentTimeMillis()).equals(task.expireDateFormatted))
+                    tvDate.setTextColor(ContextCompat.getColor(context, R.color.green))
+                else if (System.currentTimeMillis() > task.expireDate)
                     tvDate.setTextColor(ContextCompat.getColor(context, R.color.red))
                 else
                     tvDate.setTextColor(ContextCompat.getColor(context, R.color.DarkSlateBlue))
 
-                //crossed
+                //done
 //                tvDate.paint.isStrikeThruText = task.isDone
                 tvTitle.paint.isStrikeThruText = task.isDone
                 if (task.isDone)
                     tvDate.setTextColor(ContextCompat.getColor(context, R.color.gray))
 
-                //
+                //priority
                 when (task.priority) {
                     0 -> backgroundPriority.setBackgroundResource(R.drawable.item_task_rounded_background_purple)
                     1 -> backgroundPriority.setBackgroundResource(R.drawable.item_task_rounded_background_green)
