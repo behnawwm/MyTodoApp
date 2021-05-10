@@ -37,10 +37,15 @@ class TaskAddEditViewModel @ViewModelInject constructor(
             field = value
             state.set("taskImportance", value)
         }
-    var taskExpirationDate = state.get<Long>("taskExpirationDate") ?: task?.expireDate ?: 0
+    var taskExpirationDate = state.get<Long>("taskExpirationDate") ?: task?.expireDate ?: -1
         set(value) {
             field = value
             state.set("taskExpirationDate", value)
+        }
+    var taskPriority = state.get<Int>("taskPriority") ?: task?.priority ?: 0
+        set(value) {
+            field = value
+            state.set("taskPriority", value)
         }
 
     private val addEditTaskEventChannel = Channel<AddEditTaskEvent>()
@@ -58,7 +63,8 @@ class TaskAddEditViewModel @ViewModelInject constructor(
                     title = taskName,
                     isStarred = taskImportance,
                     description = taskDesc,
-                    expireDate = taskExpirationDate
+                    expireDate = taskExpirationDate,
+                    priority = taskPriority
                 )
             updateTask(updatedTask)
         } else {
@@ -66,7 +72,8 @@ class TaskAddEditViewModel @ViewModelInject constructor(
                 title = taskName,
                 isStarred = taskImportance,
                 description = taskDesc,
-                expireDate = taskExpirationDate
+                expireDate = taskExpirationDate,
+                priority = taskPriority
             )
             createTask(newTask)
         }

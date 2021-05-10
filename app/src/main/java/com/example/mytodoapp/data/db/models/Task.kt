@@ -13,7 +13,7 @@ import java.util.*
 data class Task(
     val title: String,
     val description: String = "",
-    var expireDate: Long = 0,
+    var expireDate: Long = -1,
     val isStarred: Boolean = false,
     val isDone: Boolean = false,
     val category: String = "Inbox",

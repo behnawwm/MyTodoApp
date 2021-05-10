@@ -88,6 +88,10 @@ dependencies {
     //Lottie
     implementation 'com.airbnb.android:lottie:3.7.0'
 
+    //Custom Spinner
+    implementation "com.github.skydoves:powerspinner:1.1.7"
+
+
 
 }
 kapt {
