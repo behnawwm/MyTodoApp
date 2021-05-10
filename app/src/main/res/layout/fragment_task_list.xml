@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.taskList.TaskListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -17,7 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/purple_200"
+        android:backgroundTint="@color/win8_blue"
+        app:borderWidth="0dp"
         android:contentDescription="Add"
         android:src="@drawable/ic_add" />
 
@@ -29,4 +31,4 @@
         android:layout_margin="16dp"
         android:background="@drawable/circle"
         android:visibility="invisible" />
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

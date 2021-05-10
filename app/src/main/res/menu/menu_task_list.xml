@@ -18,8 +18,8 @@
                 android:title="Sort by name" />
 
             <item
-                android:id="@+id/action_sort_by_date_created"
-                android:title="Sort by date created" />
+                android:id="@+id/action_sort_by_expire_date"
+                android:title="Sort by expire date" />
 
         </menu>
     </item>

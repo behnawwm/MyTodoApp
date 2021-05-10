@@ -8,7 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    //
+    <color name="orangePrimary">#ff9100</color>
+    <color name="orangeLight">#ffc246</color>
+    <color name="orangeDark">#c56200</color>
+
+    <color name="greenPrimary">#69f0ae</color>
+    <color name="greenLight">#9fffe0</color>
+    <color name="greenDark">#2bbd7e</color>
     <!-- Android style -->
     <color name="android_green">#A4C639</color>
 

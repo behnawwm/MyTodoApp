@@ -140,34 +140,6 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list),
 
     }
 
-    private fun startExplosionAnimation(binding: FragmentTaskListBinding, view: View) {
-        val animation =
-            AnimationUtils.loadAnimation(requireContext(), R.anim.circle_explosion_anim).apply {
-                duration = 700
-                interpolator = AccelerateDecelerateInterpolator()
-            }
-
-        binding.fabAddTask.isVisible = false
-        binding.circle.isVisible = true
-        binding.circle.startAnimation(animation) {
-            // display your fragment
-            binding.root.setBackgroundColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.purple_200
-                )
-            )
-            binding.circle.isVisible = false
-
-            val action =
-                TaskListFragmentDirections.actionTaskListFragmentToTaskAddEditFragment(
-                    null,
-                    "New Task"
-                )
-            view.findNavController().navigate(action)
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_task_list, menu)
 
@@ -194,7 +166,7 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list),
                 viewModel.onSortOrderSelected(SortOrder.BY_NAME)
                 true
             }
-            R.id.action_sort_by_date_created -> {
+            R.id.action_sort_by_expire_date -> {
                 viewModel.onSortOrderSelected(SortOrder.BY_DATE)
                 true
             }
@@ -228,6 +200,33 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list),
     }
 
 
+    private fun startExplosionAnimation(binding: FragmentTaskListBinding, view: View) {
+        val animation =
+            AnimationUtils.loadAnimation(requireContext(), R.anim.circle_explosion_anim).apply {
+                duration = 700
+                interpolator = AccelerateDecelerateInterpolator()
+            }
+
+        binding.fabAddTask.isVisible = false
+        binding.circle.isVisible = true
+        binding.circle.startAnimation(animation) {
+            // display your fragment
+            binding.root.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.win8_blue
+                )
+            )
+            binding.circle.isVisible = false
+
+            val action =
+                TaskListFragmentDirections.actionTaskListFragmentToTaskAddEditFragment(
+                    null,
+                    "New Task"
+                )
+            view.findNavController().navigate(action)
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         searchView.setOnQueryTextListener(null)
