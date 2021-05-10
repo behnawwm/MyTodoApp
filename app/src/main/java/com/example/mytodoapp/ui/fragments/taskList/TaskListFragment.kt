@@ -11,7 +11,6 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,7 +35,7 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentTaskListBinding.bind(view)
-        val taskAdapter = TaskListAdapter(this)
+        val taskAdapter = TaskListAdapter(requireContext(), this)
 
         binding.apply {
             recyclerViewTasks.apply {

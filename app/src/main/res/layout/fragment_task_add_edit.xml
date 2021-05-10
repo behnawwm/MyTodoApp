@@ -18,6 +18,13 @@
             android:hint="Task name"
             android:inputType="text" />
 
+        <EditText
+            android:id="@+id/edit_text_task_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:inputType="text" />
+
         <CheckBox
             android:id="@+id/check_box_important"
             android:layout_width="match_parent"
@@ -30,6 +37,11 @@
             android:layout_height="wrap_content"
             tools:text="Date created:" />
 
+        <Button
+            android:id="@+id/btn_date_addEdit"
+            android:text="Select Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

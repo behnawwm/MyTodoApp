@@ -1,14 +1,21 @@
 package com.example.mytodoapp.ui.fragments.taskList
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.res.Resources
+import android.opengl.Visibility
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mytodoapp.R
 import com.example.mytodoapp.databinding.ItemTaskBinding
 import com.example.mytodoapp.data.db.models.Task
 
-class TaskListAdapter(private val listener: OnItemPressListener) :
+class TaskListAdapter(val context: Context, private val listener: OnItemPressListener) :
     ListAdapter<Task, TaskListAdapter.TaskListViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskListViewHolder {
@@ -40,22 +47,25 @@ class TaskListAdapter(private val listener: OnItemPressListener) :
                         listener.onCheckBoxDoneClick(task, checkBoxDone.isChecked)
                     }
                 }
-                checkBoxImportant.setOnClickListener {
-                    val position = adapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        val task = getItem(position)
-                        listener.onCheckBoxImportantClick(task, checkBoxImportant.isChecked)
-                    }
-                }
             }
         }
 
         fun bind(task: Task) {
             binding.apply {
                 checkBoxDone.isChecked = task.isDone
-                checkBoxImportant.isChecked = task.isStarred
                 tvTitle.text = task.title
-                tvDate.text = task.createdDateFormatted
+                tvDate.text = task.expireDateFormatted
+                if (!task.description.isBlank())
+                    tvDesc.text = task.description
+                else
+                    tvDesc.visibility = View.GONE
+                tvCategory.text = task.category //todo
+
+                //date color
+                if (System.currentTimeMillis() > task.expireDate)
+                    tvDate.setTextColor(ContextCompat.getColor(context, R.color.red))
+                else
+                    tvDate.setTextColor(ContextCompat.getColor(context, R.color.DarkSlateBlue))
 
                 //crossed
                 tvDate.paint.isStrikeThruText = task.isDone

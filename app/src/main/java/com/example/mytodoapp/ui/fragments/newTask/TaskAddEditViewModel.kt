@@ -26,11 +26,21 @@ class TaskAddEditViewModel @ViewModelInject constructor(
             field = value
             state.set("taskName", value)
         }
+    var taskDesc = state.get<String>("taskName") ?: task?.description ?: ""
+        set(value) {
+            field = value
+            state.set("taskDesc", value)
+        }
 
     var taskImportance = state.get<Boolean>("taskImportance") ?: task?.isStarred ?: false
         set(value) {
             field = value
             state.set("taskImportance", value)
+        }
+    var taskExpirationDate = state.get<Long>("taskExpirationDate") ?: task?.expireDate ?: 0
+        set(value) {
+            field = value
+            state.set("taskExpirationDate", value)
         }
 
     private val addEditTaskEventChannel = Channel<AddEditTaskEvent>()
@@ -43,10 +53,21 @@ class TaskAddEditViewModel @ViewModelInject constructor(
         }
 
         if (task != null) {
-            val updatedTask = task.copy(title = taskName, isStarred = taskImportance)
+            val updatedTask =
+                task.copy(
+                    title = taskName,
+                    isStarred = taskImportance,
+                    description = taskDesc,
+                    expireDate = taskExpirationDate
+                )
             updateTask(updatedTask)
         } else {
-            val newTask = Task(title = taskName, isStarred = taskImportance)
+            val newTask = Task(
+                title = taskName,
+                isStarred = taskImportance,
+                description = taskDesc,
+                expireDate = taskExpirationDate
+            )
             createTask(newTask)
         }
     }

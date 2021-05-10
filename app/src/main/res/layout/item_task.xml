@@ -18,31 +18,48 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/check_box_done"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="Buy groceries" />
 
-        <TextView
-            android:id="@+id/tv_date"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_title"
             android:layout_marginTop="4dp"
             android:layout_toEndOf="@id/check_box_done"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            android:textSize="10sp"
+            tools:text="Buy groceries asldsakjdaspasjdasopdapkdsa;lksda;k askldnakljdad; adjaslkdjsakdassldjadklasd a;lskda" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_desc"
+            android:layout_marginTop="4dp"
+            android:layout_toEndOf="@id/check_box_done"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             tools:text="Tuesday, Nov 4" />
 
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/check_box_important"
-            style="?android:attr/starStyle"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv_date"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true" />
+            android:layout_marginEnd="4dp"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            tools:text="Category1" />
     </RelativeLayout>
 
 
