@@ -17,6 +17,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_add"
-        android:contentDescription="Add" />
+        android:backgroundTint="@color/purple_200"
+        android:contentDescription="Add"
+        android:src="@drawable/ic_add" />
+
+    <View
+        android:id="@+id/circle"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:background="@drawable/circle"
+        android:visibility="invisible" />
 </FrameLayout>

@@ -5,7 +5,11 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AnimationUtils
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -14,7 +18,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.codinginflow.mvvmtodo.util.onQueryTextChanged
+import com.example.mytodoapp.util.onQueryTextChanged
+import com.example.mytodoapp.util.startAnimation
 import com.example.mytodoapp.R
 import com.example.mytodoapp.data.SortOrder
 import com.example.mytodoapp.databinding.FragmentTaskListBinding
@@ -87,12 +92,13 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list),
                             }.show()
                     }
                     is TaskListViewModel.TasksEvent.NavigateToAddTaskScreen -> {
-                        val action =
-                            TaskListFragmentDirections.actionTaskListFragmentToTaskAddEditFragment(
-                                null,
-                                "New Task"
-                            )
-                        view.findNavController().navigate(action)
+                        startExplosionAnimation(binding, view)
+//                        val action =
+//                            TaskListFragmentDirections.actionTaskListFragmentToTaskAddEditFragment(
+//                                null,
+//                                "New Task"
+//                            )
+//                        view.findNavController().navigate(action)
                     }
                     is TaskListViewModel.TasksEvent.NavigateToEditTaskScreen -> {
                         val action =
@@ -115,6 +121,51 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list),
         }
 
         setHasOptionsMenu(true)
+
+        //test
+//        val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.circle_explosion_anim).apply {
+//            duration = 700
+//            interpolator = AccelerateDecelerateInterpolator()
+//        }
+//
+//        binding.fabAddTask.setOnClickListener {
+//            binding.fabAddTask.isVisible = false
+//            binding.circle.isVisible = true
+//            binding.circle.startAnimation(animation) {
+//                // display your fragment
+//                binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.purple_200))
+//                binding.circle.isVisible = false
+//            }
+//        }
+
+    }
+
+    private fun startExplosionAnimation(binding: FragmentTaskListBinding, view: View) {
+        val animation =
+            AnimationUtils.loadAnimation(requireContext(), R.anim.circle_explosion_anim).apply {
+                duration = 700
+                interpolator = AccelerateDecelerateInterpolator()
+            }
+
+        binding.fabAddTask.isVisible = false
+        binding.circle.isVisible = true
+        binding.circle.startAnimation(animation) {
+            // display your fragment
+            binding.root.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.purple_200
+                )
+            )
+            binding.circle.isVisible = false
+
+            val action =
+                TaskListFragmentDirections.actionTaskListFragmentToTaskAddEditFragment(
+                    null,
+                    "New Task"
+                )
+            view.findNavController().navigate(action)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
