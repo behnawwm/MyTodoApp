@@ -8,6 +8,7 @@
     android:background="@drawable/item_task_rounded_background_green">
 
     <RelativeLayout
+        android:id="@+id/rl_white_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"

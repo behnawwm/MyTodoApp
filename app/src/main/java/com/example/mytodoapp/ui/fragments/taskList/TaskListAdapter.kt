@@ -73,8 +73,14 @@ class TaskListAdapter(val context: Context, private val listener: OnItemPressLis
                 //done
 //                tvDate.paint.isStrikeThruText = task.isDone
                 tvTitle.paint.isStrikeThruText = task.isDone
-                if (task.isDone)
+                if (task.isDone) {
+//                    rlWhiteBg.alpha = 0.38f
+                    rlWhiteBg.setBackgroundResource(R.drawable.item_task_rounded_background_gray)
                     tvDate.setTextColor(ContextCompat.getColor(context, R.color.gray))
+                }
+                else{
+                    rlWhiteBg.setBackgroundResource(R.drawable.item_task_rounded_background_white)
+                }
 
                 //priority
                 when (task.priority) {

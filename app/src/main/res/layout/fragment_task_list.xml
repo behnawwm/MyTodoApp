@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/win8_blue"
+        android:backgroundTint="@color/SteelBlue"
         app:borderWidth="0dp"
         android:contentDescription="Add"
         android:src="@drawable/ic_add" />
